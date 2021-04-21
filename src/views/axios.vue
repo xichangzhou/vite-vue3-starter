@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import { ref, defineComponent } from "vue";
+import axios from "@/utils/axios";
 export default defineComponent({
     name: "HelloWorld",
     props: {
@@ -14,25 +15,21 @@ export default defineComponent({
     },
     setup: () => {
         const count = ref(0);
+        axios
+            .get("/users/xPoet")
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         return { count };
     },
 });
 </script>
 
-<style scoped>
-a {
-    color: #42b983;
-}
-
-label {
-    margin: 0 0.5em;
-    font-weight: bold;
-}
-
-code {
-    background-color: #eee;
-    padding: 2px 4px;
-    border-radius: 4px;
-    color: #304455;
+<style scoped lang="scss">
+h1 {
+    background-color: rebeccapurple;
 }
 </style>
