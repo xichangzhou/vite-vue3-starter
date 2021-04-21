@@ -1,39 +1,40 @@
-# name字段是 workflow 的名称
-name: GitHub Actions Build and Deploy Demo
-# on字段指定触发 workflow 的条件，通常是某些事件
-# 这里的触发条件是push代码到master的时候触发
+# 该workflow的名称，可以随意填写
+name: Build And Deploy To Github Pages
+
+# workflow的触发事件，这里代表main分支的push事件触发
 on:
   push:
-    branches:
-      - master
-# workflow 文件的主体是jobs字段，表示要执行的一项或多项任务
+    branches: [ main ]
+
+# 任务
 jobs:
-  main:
-    # runs-on字段指定运行所需要的虚拟机环境。它是必填字段。目前可用的虚拟机如下：ubuntu-latest，windows-latest，macOS-latest
-    runs-on: ubuntu-latest
-    # steps字段指定每个 Job 的运行步骤，可以包含一个或多个步骤
+  # build-and-deploy 为任务的ID
+  build-and-deploy:
+    # 运行所需要的环境
+    runs-on: ubuntu-latest 
+
     steps:
-      # 获取源码，使用的 action 是actions/checkout
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        persist-credentials: false
-        
-    # react项目为npm run-script build，vue项目改为npm run build
-    - name: Install and Build
-      #构建脚本
-      run: |
-        npm install
-        npm run build
-     
-    # 构建和部署，使用的 action 是JamesIves/github-pages-deploy-action
-    # react项目的FOLDER为build，vue项目改为dist
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        # GitHub 密钥
-        ACCESS_TOKEN: ${{ secrets.VUE3_DEPLOY }}
-        # 发布分支
-        BRANCH: gh-pages
-        # 构建成果所在目录
-        FOLDER: dist
+      # 步骤名
+      - name: Checkout
+        # 使用的actions脚本，这里是官方提供的获取源码脚本
+        uses: actions/checkout@v2.3.1
+        # 这个为使用 JamesIves/github-pages-deploy-action脚本所需要的配置
+        with:
+          persist-credentials: false
+
+      # 执行npm脚本打包项目
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+      
+      # 执行JamesIves/github-pages-deploy-action将项目发布到Github Pages
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          # 该workflow需要操作repo，因此需要一个密钥，下面会讲到如何获取这个密钥
+          ACCESS_TOKEN: ${{ secrets.VUE3_DEPLOY }}
+          # 发布到的分支
+          BRANCH: gh-pages
+          # 要发布的文件夹
+          FOLDER: dist
