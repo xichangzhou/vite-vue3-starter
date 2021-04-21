@@ -17,7 +17,7 @@
         "vue-router": "^4.0.6",
         "vuex": "^4.0.0"
     },
-    "homepage": "https://github.com/xicahgnzhou/vite-vue3-starter",
+    "homepage": "https://xicahgnzhou.github.io/vite-vue3-starter",
     "devDependencies": {
         "@commitlint/cli": "^12.1.1",
         "@commitlint/config-conventional": "^12.1.1",
