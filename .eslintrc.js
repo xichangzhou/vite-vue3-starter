@@ -11,5 +11,11 @@ module.exports = {
         sourceType: 'module'
     },
     plugins: ['vue', '@typescript-eslint'],
-    rules: {}
+    rules: {
+        'import/no-unresolved': 'off',
+        'import/extensions': 'off',
+        'import/no-absolute-path': 'off',
+        'import/no-extraneous-dependencies': 'off',
+        'vue/no-multiple-template-root': 'off'
+    }
 }
