@@ -1,5 +1,5 @@
 # 该workflow的名称，可以随意填写
-name: Build And Deploy To Github Pages
+name: deploy
 
 # workflow的触发事件，这里代表main分支的push事件触发
 on:
@@ -9,7 +9,7 @@ on:
 # 任务
 jobs:
   # build-and-deploy 为任务的ID
-  build-and-deploy:
+  deploy:
     # 运行所需要的环境
     runs-on: ubuntu-latest 
 
@@ -30,7 +30,7 @@ jobs:
       
       # 执行JamesIves/github-pages-deploy-action将项目发布到Github Pages
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: peaceiris/actions-gh-pages@v3
         with:
           # 该workflow需要操作repo，因此需要一个密钥，下面会讲到如何获取这个密钥
           ACCESS_TOKEN: ${{ secrets.VUE3_DEPLOY }}
