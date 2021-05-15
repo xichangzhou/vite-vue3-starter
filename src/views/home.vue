@@ -1,5 +1,9 @@
 <template>
-    <h1>home</h1>
+    <el-row>
+        <el-col :span="7"><h1>home</h1></el-col>
+        <!--商品展示-->
+        <el-col :span="17">我是产品栏</el-col>
+    </el-row>
 </template>
 
 <script lang="ts">
