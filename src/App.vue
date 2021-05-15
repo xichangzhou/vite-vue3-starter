@@ -8,6 +8,7 @@
 
         |<router-link to="/test/jsonxcz">Test</router-link>
     </div>
+
     <router-view />
 </template>
 

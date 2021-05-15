@@ -1,16 +1,24 @@
 <template>
-    <h1>axios</h1>
-    <div>{{ nowTime }}</div>
-    <div v-if="loading">Loading.....</div>
-    <textarea v-if="loaded" :value="double" contenteditable="false" />
-    <Suspense>
-        <template #default>
-            <AsyncShow />
-        </template>
-        <template #fallback>
-            <h1>...Loading...</h1>
-        </template>
-    </Suspense>
+    <el-row>
+        <el-col :span="7"
+            ><h1>axios</h1>
+            <div>{{ nowTime }}</div>
+            <div v-if="loading">Loading.....</div>
+            <textarea v-if="loaded" :value="double" contenteditable="false" />
+            <Suspense>
+                <template #default>
+                    <AsyncShow />
+                </template>
+                <template #fallback>
+                    <h1>...Loading...</h1>
+                </template>
+            </Suspense></el-col
+        >
+        <!--商品展示-->
+        <el-col :span="17">
+            <el-button type="primary" @click="pushAxios">go back</el-button>
+        </el-col>
+    </el-row>
 </template>
 
 <script lang="ts">
@@ -19,15 +27,11 @@ import axios from '@/utils/axios'
 import useUrlAxios from '@/hooks/useUrlAxios'
 import { nowTime } from '@/hooks/useNowTime'
 import AsyncShow from '@/components/AsyncShow.vue'
+import router from '@/router'
 
 export default defineComponent({
     name: 'HelloWorld',
-    props: {
-        msg: {
-            type: String,
-            required: true
-        }
-    },
+    props: {},
     components: {
         AsyncShow
     },
@@ -50,7 +54,12 @@ export default defineComponent({
             return JSON.stringify(result, null, 4)
         })
 
-        return { count, double, loading, loaded, nowTime }
+        const pushAxios = () => {
+            router.back()
+            console.log(router)
+        }
+
+        return { count, double, loading, loaded, nowTime, pushAxios }
     }
 })
 </script>

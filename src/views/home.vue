@@ -2,24 +2,25 @@
     <el-row>
         <el-col :span="7"><h1>home</h1></el-col>
         <!--商品展示-->
-        <el-col :span="17">我是产品栏</el-col>
+        <el-col :span="17">
+            <el-button type="primary" @click="pushAxios">go axios</el-button>
+        </el-col>
     </el-row>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
+import router from '@/router'
 
 export default defineComponent({
     name: 'HelloWorld',
-    props: {
-        msg: {
-            type: String,
-            required: true
-        }
-    },
+    props: {},
     setup: () => {
         const count = ref(0)
-        return { count }
+        const pushAxios = () => {
+            router.push('/axios')
+        }
+        return { count, pushAxios }
     }
 })
 </script>
