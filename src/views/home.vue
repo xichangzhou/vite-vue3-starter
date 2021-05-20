@@ -14,16 +14,56 @@
         </el-col>
         <el-col :span="17">
             <el-button type="primary" @click="pushAxios">go axios</el-button>
+            <el-button type="primary" @click="setTitle">setTitle</el-button>
+            <child />
+            <x-checkbox />
+            <div @click="openModal()">打开模态框</div>
+            <x-modal @confirmModal="confirmModal" :modalShow="modalShow" :title="modalTitle">
+                <div style="width: 100%; box-sizing: border-box">
+                    <div class="input-button" style="margin-bottom: 0px" v-if="!loginSign">
+                        <input
+                            type="text"
+                            placeholder="请输入您的邮箱！"
+                            v-model="email"
+                            style="width: 100%"
+                        />
+                    </div>
+                </div>
+            </x-modal>
+            <div @click="showAlert()">alert</div>
+            <div @click="openDrawer()">open drawer</div>
+            <x-drawer :drawerShow="drawerShow" @closeDrawer="closeDrawer" />
+            <x-button
+                :type="type"
+                :circle="circle"
+                :plain="plain"
+                :size="size"
+                :color="color"
+                :titleColor="titleColor"
+                @click="click"
+                >button</x-button
+            >
         </el-col>
     </el-row>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch, toRefs, ref } from 'vue'
+import { defineComponent, reactive, watch, toRefs, ref, provide } from 'vue'
 import router from '@/router'
 import useCount from '@/hooks/useCount'
+import useXModal from '@/hooks/useXModal'
+import useXDrawer from '@/hooks/useXDrawer'
+import useXButton from '@/components//XButton/useXButton'
+
+import XCheckbox from '@/components/XCheckbox.vue'
+import XModal from '@/components/XModal.vue'
+import utils from '@/utils/utils'
+import XDrawer from '@/components/XDrawer.vue'
+import XButton from '@/components/XButton/XButton.vue'
+import Child from './Child.vue'
 
 export default defineComponent({
+    components: { Child, XCheckbox, XModal, XDrawer, XButton },
     name: 'HelloWorld',
     props: {},
     setup: () => {
@@ -34,7 +74,7 @@ export default defineComponent({
         const { count, multiple, increase, decrease } = useCount(10)
 
         // 侦听 reactive 定义的数据 开始
-        const state = reactive({ nickname: 'xiaofan', age: 20 })
+        const state = reactive({ nickname: 'xiaofan', age: 20, content: [1, 2] })
 
         setTimeout(() => {
             // eslint-disable-next-line no-plusplus
@@ -97,7 +137,37 @@ export default defineComponent({
             stopWatch()
         }, 1000)
 
-        return { count, pushAxios, multiple, increase, decrease, ...toRefs(state) }
+        const title = ref('这个是要传的值')
+
+        // 传递值
+        provide('title', title)
+
+        const setTitle = () => {
+            title.value = Math.random().toString()
+        }
+
+        const showAlert = () => {
+            utils.alertMsg('成功')
+
+            setTimeout(() => {
+                utils.alertLoadExec(false)
+            }, 2000)
+        }
+
+        return {
+            count,
+            pushAxios,
+            multiple,
+            increase,
+            decrease,
+            ...toRefs(state),
+            title,
+            setTitle,
+            ...useXModal(),
+            showAlert,
+            ...useXDrawer(),
+            ...useXButton()
+        }
     }
 })
 </script>

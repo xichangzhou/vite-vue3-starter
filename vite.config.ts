@@ -11,9 +11,16 @@ const transformPath = (path: string) => {
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue()],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: '@import "./src/assets/style/scss/global.scss";'
+            }
+        }
+    },
     resolve: {
         alias: {
-            '@': resolve(__dirname, 'src'),
+            '@': resolve(__dirname, './src'),
             '@components': transformPath('src/components')
         }
     },
