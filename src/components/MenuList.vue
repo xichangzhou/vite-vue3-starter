@@ -21,9 +21,9 @@
             <!-- 第一层 不含子菜单  -->
             <template v-else>
                 <el-menu-item
-                    :index="fatherPath ? `${fatherPath}/${item.path}` : item.path"
+                    :index="getPath(item, fatherPath)"
                     :key="item.path"
-                    v-if="item.path.length > 0 && item.name !== 'Error'"
+                    v-if="item.meta.isShow !== false"
                 >
                     <span>{{ item.meta.title }}</span>
                 </el-menu-item>
@@ -48,9 +48,23 @@ export default {
             console.log(key, keyPath)
         }
 
+        const getPath = (item, fatherPath) => {
+            if (item.meta.path) {
+                return item.meta.path
+            }
+            if (fatherPath) {
+                if (fatherPath.endsWith('/')) {
+                    return fatherPath + item.path
+                }
+                return `${fatherPath}/${item.path}`
+            }
+            return item.path
+        }
+
         return {
             handleOpen,
-            handleClose
+            handleClose,
+            getPath
         }
     }
 }

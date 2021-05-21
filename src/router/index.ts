@@ -31,14 +31,20 @@ export const routes: Array<RouteRecordRaw> = [
         }
     },
     {
-        path: '/test/:id',
+        path: '/test',
         name: 'Test',
         component: Test,
         meta: {
             title: '测试'
         },
         children: [
-            { path: '', component: () => import('@/views/test/empty.vue') },
+            {
+                path: '',
+                component: () => import('@/views/test/empty.vue'),
+                meta: {
+                    isShow: false
+                }
+            },
             {
                 // 当 /user/:id/profile 匹配成功，
                 // UserProfile 会被渲染在 User 的 <router-view> 中
@@ -46,8 +52,20 @@ export const routes: Array<RouteRecordRaw> = [
                 path: 'profile',
                 component: () => import('@/views/test/profile.vue'),
                 meta: {
-                    title: '测试1'
-                }
+                    title: '测试1',
+                    path: '/test/profile'
+                },
+                children: [
+                    {
+                        name: 'post1',
+                        path: 'post',
+                        component: () => import('@/views/test/post.vue'),
+                        meta: {
+                            title: '测试二wwww',
+                            path: '/test/profile/post'
+                        }
+                    }
+                ]
             },
             {
                 // 当 /user/:id/posts 匹配成功
