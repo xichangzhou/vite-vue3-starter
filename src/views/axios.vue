@@ -17,6 +17,7 @@
         <!--商品展示-->
         <el-col :span="17">
             <el-button type="primary" @click="pushAxios">go back</el-button>
+            <h1>{{ state.counter }}</h1>
         </el-col>
     </el-row>
 </template>
@@ -28,6 +29,7 @@ import useUrlAxios from '@/hooks/useUrlAxios'
 import { nowTime } from '@/hooks/useNowTime'
 import AsyncShow from '@/components/AsyncShow.vue'
 import router from '@/router'
+import { useGlobalState } from '@/utils/globalState'
 
 export default defineComponent({
     name: 'HelloWorld',
@@ -59,7 +61,7 @@ export default defineComponent({
             console.log(router)
         }
 
-        return { count, double, loading, loaded, nowTime, pushAxios }
+        return { count, double, loading, loaded, nowTime, pushAxios, ...(useGlobalState() as {}) }
     }
 })
 </script>
