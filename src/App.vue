@@ -1,44 +1,51 @@
 <template>
-    <el-container style="height: 100%">
-        <el-aside width="200px" style="background-color: rgb(238, 241, 246); height: 100%">
-            <menu-list :items="routes" />
-        </el-aside>
+    <div id="app">
+        <el-container class="container">
+            <el-aside
+                :class="{
+                    aside: true,
+                    openSidebar: opened,
+                    hideSidebar: !opened
+                }"
+            >
+                <menu-list :items="routes" />
+            </el-aside>
 
-        <el-container>
-            <el-header style="text-align: right; font-size: 12px">
-                <el-dropdown>
-                    <i class="el-icon-setting" style="margin-right: 15px"></i>
-                    <template #dropdown>
-                        <el-dropdown-menu>
-                            <el-dropdown-item>查看</el-dropdown-item>
-                            <el-dropdown-item>新增</el-dropdown-item>
-                            <el-dropdown-item>删除</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </template>
-                </el-dropdown>
-                <span>王小虎</span>
-            </el-header>
-
-            <el-main>
-                <router-view />
-            </el-main>
+            <el-container class="sub_container">
+                <el-header class="header">
+                    <hamburger
+                        id="hamburger-container"
+                        class="hamburger-container"
+                        :is-active="opened"
+                        @toggleClick="toggleSideBar"
+                    />
+                    <router-view />
+                </el-header>
+            </el-container>
         </el-container>
-    </el-container>
-
-    <!-- <router-view /> -->
+    </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { routes } from '@/router/index'
 import MenuList from '@/components/MenuList.vue'
+import Hamburger from '@/components/Hamburger/index.vue'
 
 export default defineComponent({
     name: 'App',
-    components: { MenuList },
+    components: { MenuList, Hamburger },
     setup: () => {
+        const opened = ref(true)
+
+        const toggleSideBar = () => {
+            opened.value = !opened.value
+        }
+
         return {
-            routes
+            routes,
+            opened,
+            toggleSideBar
         }
     }
 })
