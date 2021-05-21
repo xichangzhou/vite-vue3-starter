@@ -5,27 +5,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, watchEffect } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 export default defineComponent({
     name: 'Test',
-    computed: {
-        username() {
-            console.log(this.$route)
-            return this.$route.params.id
+    setup() {
+        const router = useRouter()
+        const route = useRoute()
+
+        watchEffect(() => {
+            console.log(route.params)
+        })
+
+        const goBack = () => {
+            router.back()
         }
-    },
-    methods: {
-        goBack() {
-            // eslint-disable-next-line no-unused-expressions
-            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-        }
-    },
-    watch: {
-        $route(to, from) {
-            console.log(to)
-            console.log(from)
-        }
+
+        return { goBack }
     }
 })
 </script>
