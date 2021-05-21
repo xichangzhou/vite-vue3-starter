@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import NProgress from 'nprogress'
 import Home from '@/views/home.vue'
 import Vuex from '@/views/vuex.vue'
 import Error from '@/views/Error.vue'
@@ -25,22 +26,23 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Test',
         component: Test,
         children: [
+            { path: '', component: () => import('@/views/test/empty.vue') },
             {
                 // 当 /user/:id/profile 匹配成功，
                 // UserProfile 会被渲染在 User 的 <router-view> 中
                 path: 'profile',
-                component: Home
+                component: () => import('@/views/test/profile.vue')
             },
             {
                 // 当 /user/:id/posts 匹配成功
                 // UserPosts 会被渲染在 User 的 <router-view> 中
-                path: 'posts',
-                component: Home
+                path: 'post',
+                component: () => import('@/views/test/post.vue')
             }
         ]
     },
     {
-        path: '/:catchAll(.*)',
+        path: '/:catchAll(.*)*',
         name: 'Error',
         component: Error
     }
@@ -57,6 +59,18 @@ const router = createRouter({
             behavior: 'smooth'
         }
     }
+})
+
+router.beforeEach((to, from) => {
+    NProgress.start()
+    console.log(to, from)
+    // return false
+})
+
+router.afterEach((to, from) => {
+    console.log(to, from)
+    NProgress.done()
+    NProgress.remove()
 })
 
 export default router

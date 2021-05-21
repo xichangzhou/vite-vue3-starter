@@ -11,6 +11,7 @@
         "*.{vue.js.ts}": "eslint --fix"
     },
     "dependencies": {
+        "@types/nprogress": "^0.2.0",
         "axios": "^0.21.1",
         "crypto-ts": "^1.0.2",
         "dayjs": "^1.10.4",
