@@ -7,6 +7,14 @@ import { getToken } from '@/utils/cookies'
 
 export const homeRoutes = [
     {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/home.vue'),
+        meta: {
+            title: 'home'
+        }
+    },
+    {
         path: '/vuex',
         name: 'Vuex',
         component: Vuex,
@@ -129,6 +137,9 @@ router.beforeEach((to, from, next) => {
         }
     } else if (to.path === '/login') {
         next({ path: '/' })
+        NProgress.done()
+    } else if (to.path === '/') {
+        next({ path: '/home' })
         NProgress.done()
     } else {
         next()
