@@ -1,104 +1,14 @@
 <template>
-    <div id="app">
-        <el-container class="container">
-            <el-aside
-                :class="{
-                    aside: true,
-                    openSidebar: opened,
-                    hideSidebar: !opened
-                }"
-            >
-                <div @click="goHome()"><router-link to="/" class="logo">jsonxcz</router-link></div>
-                <menu-list :items="routes" />
-            </el-aside>
-
-            <el-container class="sub_container">
-                <el-header class="header">
-                    <hamburger :is-active="opened" @toggleClick="toggleSideBar" />
-                    <div>
-                        <el-dropdown>
-                            <i class="el-icon-setting" style="margin-right: 15px"></i>
-                            <template #dropdown>
-                                <el-dropdown-menu>
-                                    <el-dropdown-item>查看</el-dropdown-item>
-                                    <el-dropdown-item>新增</el-dropdown-item>
-                                    <el-dropdown-item>删除</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </template>
-                        </el-dropdown>
-                        <span>王小虎</span>
-                    </div>
-                </el-header>
-                <el-main>
-                    <router-view />
-                </el-main>
-            </el-container>
-        </el-container>
-    </div>
+    <router-view />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { routes } from '@/router/index'
-import MenuList from '@/components/MenuList.vue'
-import Hamburger from '@/components/Hamburger/index.vue'
-import { useRouter } from 'vue-router'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'App',
-    components: { MenuList, Hamburger },
-    setup: () => {
-        const opened = ref(true)
-
-        const toggleSideBar = () => {
-            opened.value = !opened.value
-        }
-
-        const goHome = () => {
-            useRouter().push('/')
-        }
-
-        return {
-            routes,
-            opened,
-            toggleSideBar,
-            goHome
-        }
-    }
+    setup: () => {}
 })
 </script>
 
-<style lang="scss" scoped>
-.container {
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-}
-
-.sub_container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-
-    .header {
-        height: 60px !important;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 10px !important;
-    }
-
-    .main {
-        flex: 1;
-    }
-}
-
-.logo {
-    height: 60px !important;
-    display: block;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-</style>
+<style lang="scss" scoped></style>

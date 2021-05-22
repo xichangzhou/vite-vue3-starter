@@ -1,19 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import NProgress from 'nprogress'
-import Home from '@/views/home.vue'
 import Vuex from '@/views/vuex.vue'
 import Error from '@/views/Error.vue'
 import Test from '@/views/Test.vue'
+import { getToken } from '@/utils/cookies'
 
-export const routes: Array<RouteRecordRaw> = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home,
-        meta: {
-            title: '主页'
-        }
-    },
+export const homeRoutes = [
     {
         path: '/vuex',
         name: 'Vuex',
@@ -78,6 +70,27 @@ export const routes: Array<RouteRecordRaw> = [
                 }
             }
         ]
+    }
+]
+
+export const routes: Array<RouteRecordRaw> = [
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/views/login/login.vue'),
+        meta: {
+            title: 'Login',
+            isShow: false
+        }
+    },
+    {
+        path: '/',
+        name: 'Home',
+        component: () => import('@/views/homeLayout.vue'),
+        meta: {
+            title: '主页'
+        },
+        children: homeRoutes
     },
     {
         path: '/:catchAll(.*)*',
@@ -102,14 +115,27 @@ const router = createRouter({
     }
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
     NProgress.start()
-    console.log(to, from)
-    // return false
+
+    const token = getToken()
+
+    if (!token) {
+        if (to.path === '/login') {
+            next()
+        } else {
+            next({ path: '/login' })
+            NProgress.done()
+        }
+    } else if (to.path === '/login') {
+        next({ path: '/' })
+        NProgress.done()
+    } else {
+        next()
+    }
 })
 
-router.afterEach((to, from) => {
-    console.log(to, from)
+router.afterEach(() => {
     NProgress.done()
     NProgress.remove()
 })
