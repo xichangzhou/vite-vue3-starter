@@ -15,6 +15,19 @@
             <el-container class="sub_container">
                 <el-header class="header">
                     <hamburger :is-active="opened" @toggleClick="toggleSideBar" />
+                    <div>
+                        <el-dropdown>
+                            <i class="el-icon-setting" style="margin-right: 15px"></i>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item>查看</el-dropdown-item>
+                                    <el-dropdown-item>新增</el-dropdown-item>
+                                    <el-dropdown-item>删除</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
+                        <span>王小虎</span>
+                    </div>
                 </el-header>
                 <el-main>
                     <router-view />
@@ -72,6 +85,8 @@ export default defineComponent({
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
+        padding: 0 10px !important;
     }
 
     .main {
