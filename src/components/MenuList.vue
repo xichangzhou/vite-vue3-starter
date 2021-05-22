@@ -72,6 +72,8 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-el-menu {
-    background: #eef1f6;
+    background: #fff;
 }
+
+
 </style>

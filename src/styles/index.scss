@@ -107,7 +107,7 @@ div:focus {
 }
 
 .aside {
-	background: #eef1f6;
+	background: #fff;
 	margin: 0 !important;
 	padding: 0 !important;
 	border-radius: 2px;
@@ -115,7 +115,7 @@ div:focus {
 	line-height: 32px;
 	font-size: 16px;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-	color: #2c3e50;
+	color: #fff;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
@@ -211,4 +211,17 @@ div:focus {
 
 .multiselect--active {
 	z-index: 1000 !important;
+}
+.el-submenu__title:hover {
+     color:#fff;
+    background-color: #435ebe !important;
+}
+.el-menu-item.is-active{
+    color:#fff;
+    background-color: #435ebe !important;
+}
+
+.el-menu-item:focus, .el-menu-item:hover {
+	color:#fff;
+    background-color: #435ebe !important;
 }

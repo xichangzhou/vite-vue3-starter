@@ -7,7 +7,6 @@ import App from './App.vue'
 
 import '@/styles/index.scss'
 import 'nprogress/nprogress.css'
-import 'element-plus/lib/theme-chalk/index.css'
 
 // 全局共享的state数据
 createApp(App)
