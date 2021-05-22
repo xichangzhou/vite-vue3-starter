@@ -128,7 +128,6 @@ const utils = {
             right: '0',
             bottom: '0',
             'background-color': 'rgba(0, 0, 0, 0.1)',
-
             'z-index': '999999999'
         })
         // 控制 提示框样式
@@ -146,14 +145,16 @@ const utils = {
         if (data) {
             // 控制提示字体样式
             utils.setCss(alertText, {
-                width: '350px',
+                'max-width': '350px',
+                height: 'auto',
                 'border-bottom': '1px solid #ddd',
-                padding: '16px 10px',
+                padding: '16px 0px',
                 color: 'white',
                 'background-color': 'rgba(0, 0, 0, 0.7)',
                 opacity: 1,
                 'border-radius': '4px',
-                margin: 'auto'
+                margin: 'auto',
+                'word-wrap': 'break-word'
             })
         }
         // 内部结构套入

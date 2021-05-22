@@ -86,7 +86,7 @@ export const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'Home',
-        component: () => import('@/views/homeLayout.vue'),
+        component: () => import('@/layout/homeLayout.vue'),
         meta: {
             title: '主页'
         },

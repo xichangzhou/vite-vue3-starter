@@ -28,7 +28,7 @@
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
-                        <span>王小虎</span>
+                        <span>{{ token }}</span>
                     </div>
                 </el-header>
                 <el-main>
