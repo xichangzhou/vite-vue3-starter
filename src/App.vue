@@ -8,19 +8,17 @@
                     hideSidebar: !opened
                 }"
             >
+                <div @click="goHome()"><router-link to="/" class="logo">jsonxcz</router-link></div>
                 <menu-list :items="routes" />
             </el-aside>
 
             <el-container class="sub_container">
                 <el-header class="header">
-                    <hamburger
-                        id="hamburger-container"
-                        class="hamburger-container"
-                        :is-active="opened"
-                        @toggleClick="toggleSideBar"
-                    />
-                    <router-view />
+                    <hamburger :is-active="opened" @toggleClick="toggleSideBar" />
                 </el-header>
+                <el-main>
+                    <router-view />
+                </el-main>
             </el-container>
         </el-container>
     </div>
@@ -31,6 +29,7 @@ import { defineComponent, ref } from 'vue'
 import { routes } from '@/router/index'
 import MenuList from '@/components/MenuList.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
     name: 'App',
@@ -42,37 +41,25 @@ export default defineComponent({
             opened.value = !opened.value
         }
 
+        const goHome = () => {
+            useRouter().push('/')
+        }
+
         return {
             routes,
             opened,
-            toggleSideBar
+            toggleSideBar,
+            goHome
         }
     }
 })
 </script>
 
 <style lang="scss" scoped>
-body,
-.aside,
-.main,
-.el-header {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-#app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 .container {
     height: 100vh;
     display: flex;
     flex-direction: row;
-
-    .aside {
-        transition: width 0.28s;
-        z-index: 9 !important;
-    }
 }
 
 .sub_container {
@@ -81,10 +68,9 @@ body,
     flex-direction: column;
 
     .header {
-        height: 80px;
+        height: 60px !important;
         display: flex;
         flex-direction: row;
-        justify-content: center;
         align-items: center;
     }
 
@@ -93,10 +79,11 @@ body,
     }
 }
 
-.openSidebar {
-    width: 200px !important;
-}
-.hideSidebar {
-    width: 0px !important;
+.logo {
+    height: 60px !important;
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

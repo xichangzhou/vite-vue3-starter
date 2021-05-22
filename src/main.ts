@@ -4,6 +4,8 @@ import store from '@/store/index'
 import ElementPlus from 'element-plus'
 import { globalSymbol, createGlobalState } from '@/utils/globalState'
 import App from './App.vue'
+
+import '@/styles/index.scss'
 import 'nprogress/nprogress.css'
 import 'element-plus/lib/theme-chalk/index.css'
 

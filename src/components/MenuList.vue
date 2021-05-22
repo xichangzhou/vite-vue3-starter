@@ -70,4 +70,7 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.sidebar-el-menu {
+}
+</style>
