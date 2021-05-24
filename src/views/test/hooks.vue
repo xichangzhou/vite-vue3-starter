@@ -1,6 +1,7 @@
 <template>
     <input v-model="title" />
     <button @click="updateTitle">更新标题</button>
+    <v-md-editor v-model="text" height="400px"></v-md-editor>
 </template>
 
 <script lang="ts">
@@ -16,9 +17,11 @@ export default defineComponent({
         const updateTitle = () => {
             setTitle(title.value)
         }
+        const text = ref('')
         return {
             title,
-            updateTitle
+            updateTitle,
+            text
         }
     }
 })
