@@ -94,6 +94,14 @@ export const homeRoutes = [
                 meta: {
                     title: 'splitpanes'
                 }
+            },
+            {
+                name: 'useTitle',
+                path: 'useTitle',
+                component: () => import('@/views/test/hooks.vue'),
+                meta: {
+                    title: 'useTitle'
+                }
             }
         ]
     }
