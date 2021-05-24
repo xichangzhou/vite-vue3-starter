@@ -86,6 +86,14 @@ export const homeRoutes = [
                 meta: {
                     title: 'jsonViewer'
                 }
+            },
+            {
+                name: 'splitpanes',
+                path: 'splitpanes',
+                component: () => import('@/views/test/splitpanes.vue'),
+                meta: {
+                    title: 'splitpanes'
+                }
             }
         ]
     }

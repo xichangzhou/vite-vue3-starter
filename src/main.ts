@@ -8,6 +8,7 @@ import App from './App.vue'
 
 import '@/styles/index.scss'
 import 'nprogress/nprogress.css'
+import 'splitpanes/dist/splitpanes.css'
 
 // 全局共享的state数据
 createApp(App)
