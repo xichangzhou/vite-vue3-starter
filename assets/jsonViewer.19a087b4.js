@@ -1,0 +1,1 @@
+import{d as a,r as e,k as n,o as r,l as s}from"./vendor.c64a0b48.js";var t=a({name:"Test",setup(){const a={name:"qiu",age:18,isMan:!1,date:new Date,fn:()=>{},arr:[1,2,5]};return{jsonData:e(a)}}});t.render=function(a,e,t,o,u,l){const d=n("json-viewer",!0);return r(),s(d,{value:a.jsonData,copyable:"",boxed:"",sort:""},null,8,["value"])};export default t;
