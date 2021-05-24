@@ -25,6 +25,7 @@
         "vue-echarts": "^6.0.0-rc.5",
         "vue-nprogress": "^0.2.0",
         "vue-router": "^4.0.6",
+        "vue3-carousel": "^0.1.20",
         "vue3-json-viewer": "^1.0.4",
         "vuex": "^4.0.0"
     },
