@@ -27,7 +27,9 @@
         "vue-router": "^4.0.6",
         "vue3-carousel": "^0.1.20",
         "vue3-json-viewer": "^1.0.4",
-        "vuex": "^4.0.0"
+        "vuex": "^4.0.0",
+        "vxe-table": "^4.0.17-beta.2",
+        "xe-utils": "^3.2.1"
     },
     "homepage": "https://xicahgnzhou.github.io/vite-vue3-starter",
     "devDependencies": {

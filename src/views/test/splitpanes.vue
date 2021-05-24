@@ -5,23 +5,31 @@
         </pane>
         <pane size="80">
             <div style="padding: 30px">
-                <span
-                    ><Carousel :items-to-show="2.5" :wrap-around="true">
-                        <Slide v-for="slide in 10" :key="slide">
-                            <div class="carousel__item">{{ slide }}</div>
-                        </Slide>
+                <Carousel :items-to-show="2.5" :wrap-around="true">
+                    <Slide v-for="slide in 10" :key="slide">
+                        <div class="carousel__item">{{ slide }}</div>
+                    </Slide>
 
-                        <template #addons>
-                            <Navigation />
-                        </template> </Carousel
-                ></span>
+                    <template #addons>
+                        <Navigation />
+                    </template>
+                </Carousel>
+                <vxe-table :data="tableData">
+                    <vxe-column type="seq" title="Seq" width="60"></vxe-column>
+                    <vxe-column field="name" title="Name"></vxe-column>
+                    <vxe-column field="role" title="Role"></vxe-column>
+                    <vxe-colgroup title="Group1">
+                        <vxe-column field="sex" title="Sex"></vxe-column>
+                        <vxe-column field="address" title="Address"></vxe-column>
+                    </vxe-colgroup>
+                </vxe-table>
             </div>
         </pane>
     </splitpanes>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 
 import 'vue3-carousel/dist/carousel.css'
@@ -36,7 +44,15 @@ export default defineComponent({
         Slide,
         Navigation
     },
-    setup() {}
+    setup() {
+        const tableData = ref([
+            { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', address: 'Shenzhen' },
+            { id: 10002, name: 'Test2', role: 'Test', sex: 'Man', address: 'Guangzhou' },
+            { id: 10003, name: 'Test3', role: 'PM', sex: 'Man', address: 'Shanghai' }
+        ])
+
+        return { tableData }
+    }
 })
 </script>
 
