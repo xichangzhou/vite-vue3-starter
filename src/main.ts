@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import router from '@/router/index'
 import store from '@/store/index'
 import ElementPlus from 'element-plus'
+import JsonViewer from 'vue3-json-viewer'
 import { globalSymbol, createGlobalState } from '@/utils/globalState'
 import App from './App.vue'
 
@@ -14,4 +15,5 @@ createApp(App)
     .use(router)
     .use(store)
     .use(ElementPlus)
+    .use(JsonViewer)
     .mount('#app')

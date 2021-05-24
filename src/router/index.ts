@@ -76,6 +76,16 @@ export const homeRoutes = [
                 meta: {
                     title: '测试二'
                 }
+            },
+            {
+                // 当 /user/:id/posts 匹配成功
+                // UserPosts 会被渲染在 User 的 <router-view> 中
+                name: 'jsonViewer',
+                path: 'jsonViewer',
+                component: () => import('@/views/test/jsonViewer.vue'),
+                meta: {
+                    title: 'jsonViewer'
+                }
             }
         ]
     }

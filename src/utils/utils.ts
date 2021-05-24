@@ -254,64 +254,33 @@ const utils = {
     }
 }
 
-// Parse the time to string
-export const parseTime = (
-    time?: object | string | number | null,
-    cFormat?: string
-): string | null => {
-    if (time === undefined || !time) {
-        return null
+/**
+let date = new Date();
+console.log(dateFormat("YYYY-mm-dd HH:MM", date));
+ */
+export const dateFormat = (fmt: string, date: any) => {
+    let ret
+    const opt: { [key: string]: string } = {
+        'Y+': date.getFullYear().toString(), // 年
+        'm+': (date.getMonth() + 1).toString(), // 月
+        'd+': date.getDate().toString(), // 日
+        'H+': date.getHours().toString(), // 时
+        'M+': date.getMinutes().toString(), // 分
+        'S+': date.getSeconds().toString() // 秒
+        // 有其他格式化字符需求可以继续添加，必须转化成字符串
     }
-    const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
-    let date: Date
-    if (typeof time === 'object') {
-        date = time as Date
-    } else {
-        if (typeof time === 'string') {
-            if (/^[0-9]+$/.test(time)) {
-                // support "1548221490638"
-                time = parseInt(time, 10)
-            } else {
-                // support safari
-                // https://stackoverflow.com/questions/4310953/invalid-date-in-safari
-                time = time.replace(new RegExp(/-/gm), '/')
-            }
-        }
-        if (typeof time === 'number' && time.toString().length === 10) {
-            time *= 1000
-        }
-        date = new Date(time)
-    }
-    const formatObj: { [key: string]: number } = {
-        y: date.getFullYear(),
-        m: date.getMonth() + 1,
-        d: date.getDate(),
-        h: date.getHours(),
-        i: date.getMinutes(),
-        s: date.getSeconds(),
-        a: date.getDay()
-    }
-    const timeStr = format.replace(/{([ymdhisa])+}/g, (result, key) => {
-        const value = formatObj[key]
-        // Note: getDay() returns 0 on Sunday
-        if (key === 'a') {
-            return ['日', '一', '二', '三', '四', '五', '六'][value]
-        }
-        return value.toString().padStart(2, '0')
-    })
-    return timeStr
-}
+    for (const k in opt) {
+        // 正则表达式执行匹配执行结果
+        ret = new RegExp(`(${k})`).exec(fmt)
 
-// Format and filter json data using filterKeys array
-export const formatJson = (filterKeys: any, jsonData: any) => {
-    jsonData.map((data: any) =>
-        filterKeys.map((key: string) => {
-            if (key === 'timestamp') {
-                return parseTime(data[key])
-            }
-            return data[key]
-        })
-    )
+        if (ret) {
+            fmt = fmt.replace(
+                ret[1],
+                ret[1].length === 1 ? opt[k] : opt[k].padStart(ret[1].length, '0')
+            )
+        }
+    }
+    return fmt
 }
 
 // Check if an element has a class

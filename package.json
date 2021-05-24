@@ -13,6 +13,7 @@
     "dependencies": {
         "@types/nprogress": "^0.2.0",
         "axios": "^0.21.1",
+        "clipboard": "^2.0.8",
         "crypto-ts": "^1.0.2",
         "dayjs": "^1.10.4",
         "element-plus": "^1.0.2-beta.40",
@@ -21,6 +22,7 @@
         "vue": "^3.0.5",
         "vue-nprogress": "^0.2.0",
         "vue-router": "^4.0.6",
+        "vue3-json-viewer": "^1.0.4",
         "vuex": "^4.0.0"
     },
     "homepage": "https://xicahgnzhou.github.io/vite-vue3-starter",
