@@ -13,6 +13,7 @@
     "dependencies": {
         "@kangc/v-md-editor": "^2.2.6",
         "@types/nprogress": "^0.2.0",
+        "ahooks-vue": "^0.11.2",
         "axios": "^0.21.1",
         "clipboard": "^2.0.8",
         "crypto-ts": "^1.0.2",
