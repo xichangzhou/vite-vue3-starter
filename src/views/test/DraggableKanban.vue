@@ -29,11 +29,22 @@
             header-text="Done"
         />
     </div>
+    <ul id="items">
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
+    <ul id="items2">
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
 </template>
 
 <script lang="ts">
 import XDraggableKanban from '@/components/XDraggableKanban.vue'
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs, onMounted } from 'vue'
+import Sortable from 'sortablejs'
 
 export default defineComponent({
     name: 'XDraggableKanbanDemo',
@@ -60,6 +71,21 @@ export default defineComponent({
                 { name: 'Mission', id: 10 }
             ]
         })
+        onMounted(() => {
+            const el = document.getElementById('items')
+            if (el) {
+                Sortable.create(el, {
+                    group: 'g'
+                })
+            }
+            const el2 = document.getElementById('items2')
+            if (el2) {
+                Sortable.create(el2, {
+                    group: 'g'
+                })
+            }
+        })
+
         return { ...toRefs(dataMap) }
     }
 })
