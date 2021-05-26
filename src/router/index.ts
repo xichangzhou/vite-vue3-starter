@@ -104,11 +104,11 @@ export const homeRoutes = [
                 }
             },
             {
-                name: 'modal',
-                path: 'modal',
-                component: () => import('@/views/test/modal.vue'),
+                name: 'DraggableKanban',
+                path: 'DraggableKanban',
+                component: () => import('@/views/test/DraggableKanban.vue'),
                 meta: {
-                    title: 'modal'
+                    title: 'DraggableKanban'
                 }
             },
             {
