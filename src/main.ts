@@ -5,6 +5,7 @@ import ElementPlus from 'element-plus'
 import JsonViewer from 'vue3-json-viewer'
 import VXETable from 'vxe-table'
 import VMdEditor from '@kangc/v-md-editor'
+import faker from 'faker'
 
 import { globalSymbol, createGlobalState } from '@/utils/globalState'
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
@@ -20,9 +21,10 @@ import '@kangc/v-md-editor/lib/theme/style/github.css'
 
 VMdEditor.use(githubTheme)
 
+const app = createApp(App)
+app.config.globalProperties.$faker = faker
 // 全局共享的state数据
-createApp(App)
-    .provide(globalSymbol, createGlobalState())
+app.provide(globalSymbol, createGlobalState())
     .use(router)
     .use(store)
     .use(ElementPlus)

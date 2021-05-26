@@ -1,4 +1,5 @@
 import { reactive, provide, inject, readonly } from 'vue'
+import faker from 'faker'
 
 /**
  * 创建全局共享的state
@@ -13,7 +14,7 @@ export const createGlobalState = () => {
         state.counter += 1
     }
 
-    return { increment, state: readonly(state) }
+    return { increment, state: readonly(state), faker }
 }
 
 export const provideState = (key = Symbol(Math.random().toString()), value: any) =>

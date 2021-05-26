@@ -102,6 +102,22 @@ export const homeRoutes = [
                 meta: {
                     title: 'useTitle'
                 }
+            },
+            {
+                name: 'modal',
+                path: 'modal',
+                component: () => import('@/views/test/modal.vue'),
+                meta: {
+                    title: 'modal'
+                }
+            },
+            {
+                name: 'DraggableList',
+                path: 'DraggableList',
+                component: () => import('@/views/test/DraggableList.vue'),
+                meta: {
+                    title: 'DraggableList'
+                }
             }
         ]
     }

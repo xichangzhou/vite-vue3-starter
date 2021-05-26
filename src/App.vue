@@ -3,11 +3,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, getCurrentInstance } from 'vue'
 
 export default defineComponent({
     name: 'App',
-    setup: () => {}
+    setup: () => {
+        console.log(getCurrentInstance()?.appContext.config.globalProperties.$faker.name.findName())
+    }
 })
 </script>
 
