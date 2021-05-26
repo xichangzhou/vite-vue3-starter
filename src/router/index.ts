@@ -118,6 +118,14 @@ export const homeRoutes = [
                 meta: {
                     title: 'DraggableList'
                 }
+            },
+            {
+                name: 'DraggableDialog',
+                path: 'DraggableDialog',
+                component: () => import('@/views/test/DraggableDialog.vue'),
+                meta: {
+                    title: 'DraggableDialog'
+                }
             }
         ]
     }
