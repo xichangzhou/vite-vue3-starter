@@ -12,7 +12,8 @@ const useUrlAxios = (url: string) => {
         .then((res) => {
             loading.value = false
             loaded.value = true
-            result.value = res.data
+            result.value = res.data.data.sysUserRooms
+            console.log(res.data.data)
         })
         .catch((e) => {
             error.value = e

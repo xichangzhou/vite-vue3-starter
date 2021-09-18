@@ -28,16 +28,16 @@ export default defineConfig({
     server: {
         port: 3000, // 设置服务启动端口号
         open: true, // 设置服务启动时是否自动打开浏览器
-        cors: true // 设置是否跨域
+        cors: true, // 设置是否跨域
 
         // 设置代理
-        // proxy: {
-        //     "/api": {
-        //         target: "http://xxx.xxx.xxx:8000",
-        //         changeOrigin: true,
-        //         secure: false,
-        //         rewrite: (path) => path.replace("/api/", "/"),
-        //     },
-        // },
+        proxy: {
+            '/api': {
+                target: 'http://127.0.0.1:8889',
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => path.replace('/api/', '/')
+            }
+        }
     }
 })

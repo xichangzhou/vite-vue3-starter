@@ -9,13 +9,15 @@
             <el-button>取消</el-button>
         </el-form-item>
     </el-form>
-    <el-table :data="tableData" border style="width: 100%">
-        <el-table-column fixed prop="date" label="日期" width="150"> </el-table-column>
-        <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-        <el-table-column prop="province" label="省份" width="120"> </el-table-column>
-        <el-table-column prop="city" label="市区" width="120"> </el-table-column>
-        <el-table-column prop="address" label="地址" width="600"> </el-table-column>
-        <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
+    <div v-if="loading">Loading.....</div>
+    <el-table v-if="loaded" :data="sysUserRooms" border style="width: 100%">
+        <el-table-column fixed prop="oid" label="日期" width="150"> </el-table-column>
+        <el-table-column prop="user_id" label="姓名" width="120"> </el-table-column>
+        <el-table-column prop="ld_dm" label="省份" width="120"> </el-table-column>
+        <el-table-column prop="xq_dm" label="省份" width="120"> </el-table-column>
+        <el-table-column prop="room_dm" label="市区" width="120"> </el-table-column>
+        <el-table-column prop="room_id" label="地址" width="600"> </el-table-column>
+        <el-table-column prop="room_name" label="邮编" width="120"> </el-table-column>
         <el-table-column fixed="right" label="操作" width="100">
             <template #default="scope">
                 <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
@@ -39,12 +41,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch, toRefs, ref, provide } from 'vue'
+import { defineComponent, reactive, watch, toRefs, ref, provide, computed } from 'vue'
 import router from '@/router'
 import useCount from '@/hooks/useCount'
 import useXModal from '@/hooks/useXModal'
 import useXDrawer from '@/hooks/useXDrawer'
 import useXButton from '@/components//XButton/useXButton'
+import useUrlAxios from '@/hooks/useUrlAxios'
 
 export default defineComponent({
     components: {},
@@ -146,6 +149,14 @@ export default defineComponent({
             console.log(`当前页: ${val}`)
         }
 
+        const { result, loading, loaded } = useUrlAxios('/api/sysUserRoom/test')
+
+        const double = computed(() => {
+            return JSON.stringify(result, null, 4)
+        })
+
+        console.log(result)
+
         return {
             count,
             pushAxios,
@@ -168,11 +179,15 @@ export default defineComponent({
                 resource: '',
                 desc: ''
             },
+            double,
+            loading,
+            loaded,
             onSubmit,
             handleClick,
             handleSizeChange,
             handleCurrentChange,
             currentPage4: 4,
+            sysUserRooms: result,
             tableData: [
                 {
                     date: '2016-05-02',
