@@ -1,22 +1,26 @@
 <template>
     <h1>vue</h1>
+    <h1>{{ state.counter }}</h1>
+    <el-button type="primary" @click="increment">add</el-button>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent } from 'vue'
+import { useGlobalState } from '@/utils/globalState'
+
 export default defineComponent({
-    name: "HelloWorld",
+    name: 'HelloWorld',
     props: {
         msg: {
             type: String,
-            required: true,
-        },
+            required: true
+        }
     },
     setup: () => {
-        const count = ref(0);
-        return { count };
-    },
-});
+        const count = ref(0)
+        return { count, ...(useGlobalState() as {}) }
+    }
+})
 </script>
 
 <style scoped>
