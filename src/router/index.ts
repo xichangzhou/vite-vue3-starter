@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import NProgress from 'nprogress'
-import Vuex from '@/views/vuex.vue'
 import Error from '@/views/Error.vue'
-import Test from '@/views/Test.vue'
 import { getToken } from '@/utils/cookies'
 
 export const homeRoutes = [
@@ -13,121 +11,6 @@ export const homeRoutes = [
         meta: {
             title: 'home'
         }
-    },
-    {
-        path: '/vuex',
-        name: 'Vuex',
-        component: Vuex,
-        meta: {
-            title: 'Vuex'
-        }
-    },
-    {
-        path: '/axios',
-        name: 'Axios',
-        component: () => import('@/views/axios.vue'),
-        meta: {
-            title: '请求'
-        }
-    },
-    {
-        path: '/test',
-        name: 'Test',
-        component: Test,
-        meta: {
-            title: '测试'
-        },
-        children: [
-            {
-                path: '',
-                component: () => import('@/views/test/empty.vue'),
-                meta: {
-                    isShow: false
-                }
-            },
-            {
-                // 当 /user/:id/profile 匹配成功，
-                // UserProfile 会被渲染在 User 的 <router-view> 中
-                name: 'profile',
-                path: 'profile',
-                component: () => import('@/views/test/profile.vue'),
-                meta: {
-                    title: '测试1',
-                    path: '/test/profile'
-                },
-                children: [
-                    {
-                        name: 'post1',
-                        path: 'post',
-                        component: () => import('@/views/test/post.vue'),
-                        meta: {
-                            title: '测试二wwww',
-                            path: '/test/profile/post'
-                        }
-                    }
-                ]
-            },
-            {
-                // 当 /user/:id/posts 匹配成功
-                // UserPosts 会被渲染在 User 的 <router-view> 中
-                name: 'post',
-                path: 'post',
-                component: () => import('@/views/test/post.vue'),
-                meta: {
-                    title: '测试二'
-                }
-            },
-            {
-                // 当 /user/:id/posts 匹配成功
-                // UserPosts 会被渲染在 User 的 <router-view> 中
-                name: 'jsonViewer',
-                path: 'jsonViewer',
-                component: () => import('@/views/test/jsonViewer.vue'),
-                meta: {
-                    title: 'jsonViewer'
-                }
-            },
-            {
-                name: 'splitpanes',
-                path: 'splitpanes',
-                component: () => import('@/views/test/splitpanes.vue'),
-                meta: {
-                    title: 'splitpanes'
-                }
-            },
-            {
-                name: 'useTitle',
-                path: 'useTitle',
-                component: () => import('@/views/test/hooks.vue'),
-                meta: {
-                    title: 'useTitle'
-                }
-            },
-            {
-                name: 'DraggableKanban',
-                path: 'DraggableKanban',
-                component: () => import('@/views/test/DraggableKanban.vue'),
-                meta: {
-                    title: 'DraggableKanban'
-                }
-            },
-            {
-                name: 'DraggableList',
-                path: 'DraggableList',
-                component: () => import('@/views/test/DraggableList.vue'),
-                meta: {
-                    title: 'DraggableList'
-                }
-            },
-            {
-                name: 'DraggableDialog',
-                path: 'DraggableDialog',
-                component: () => import('@/views/test/DraggableDialog.vue'),
-                meta: {
-                    title: 'DraggableDialog'
-                }
-            }
-        ]
     }
 ]
 

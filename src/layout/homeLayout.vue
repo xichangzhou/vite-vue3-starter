@@ -9,7 +9,7 @@
                 }"
             >
                 <div @click="goHome()">
-                    <router-link to="/" class="logo">jsonxcz</router-link>
+                    <router-link to="/" class="logo">上海交通大学</router-link>
                 </div>
                 <menu-list :items="routes" />
             </el-aside>

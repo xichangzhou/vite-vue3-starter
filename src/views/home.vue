@@ -1,50 +1,41 @@
 <template>
-    <el-row>
-        <el-col :span="7">
-            <p>count: {{ count }}</p>
-            <p>倍数： {{ multiple }}</p>
-            <div>
-                <button @click="increase()">加1</button>
-                <button @click="decrease()">减一</button>
-            </div>
-            <div class="homePage">
-                <p>姓名： {{ nickname }}</p>
-                <p>年龄： {{ age }}</p>
-            </div>
-        </el-col>
-        <el-col :span="17">
-            <el-button type="primary" @click="pushAxios">go axios</el-button>
-            <el-button type="primary" @click="setTitle">setTitle</el-button>
-            <child />
-            <x-checkbox />
-            <div @click="openModal()">打开模态框</div>
-            <x-modal @confirmModal="confirmModal" :modalShow="modalShow" :title="modalTitle">
-                <div style="width: 100%; box-sizing: border-box">
-                    <div class="input-button" style="margin-bottom: 0px" v-if="!loginSign">
-                        <input
-                            type="text"
-                            placeholder="请输入您的邮箱！"
-                            v-model="email"
-                            style="width: 100%"
-                        />
-                    </div>
-                </div>
-            </x-modal>
-            <div @click="showAlert()">alert</div>
-            <div @click="openDrawer()">open drawer</div>
-            <x-drawer :drawerShow="drawerShow" @closeDrawer="closeDrawer" />
-            <x-button
-                :type="type"
-                :circle="circle"
-                :plain="plain"
-                :size="size"
-                :color="color"
-                :titleColor="titleColor"
-                @click="click"
-                >button</x-button
-            >
-        </el-col>
-    </el-row>
+    <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="活动名称">
+            <el-input v-model="form.name"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">立即创建</el-button>
+            <el-button>取消</el-button>
+        </el-form-item>
+    </el-form>
+    <el-table :data="tableData" border style="width: 100%">
+        <el-table-column fixed prop="date" label="日期" width="150"> </el-table-column>
+        <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
+        <el-table-column prop="province" label="省份" width="120"> </el-table-column>
+        <el-table-column prop="city" label="市区" width="120"> </el-table-column>
+        <el-table-column prop="address" label="地址" width="600"> </el-table-column>
+        <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
+        <el-table-column fixed="right" label="操作" width="100">
+            <template #default="scope">
+                <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                <el-button type="text" size="small">编辑</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <div class="block">
+        <span class="demonstration">完整功能</span>
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage4"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="400"
+        >
+        </el-pagination>
+    </div>
 </template>
 
 <script lang="ts">
@@ -55,15 +46,8 @@ import useXModal from '@/hooks/useXModal'
 import useXDrawer from '@/hooks/useXDrawer'
 import useXButton from '@/components//XButton/useXButton'
 
-import XCheckbox from '@/components/XCheckbox.vue'
-import XModal from '@/components/XModal.vue'
-import utils from '@/utils/utils'
-import XDrawer from '@/components/XDrawer.vue'
-import XButton from '@/components/XButton/XButton.vue'
-import Child from './Child.vue'
-
 export default defineComponent({
-    components: { Child, XCheckbox, XModal, XDrawer, XButton },
+    components: {},
     name: 'HelloWorld',
     props: {},
     setup: () => {
@@ -146,12 +130,20 @@ export default defineComponent({
             title.value = Math.random().toString()
         }
 
-        const showAlert = () => {
-            utils.alertMsg('成功')
+        const onSubmit = () => {
+            console.log('submit!')
+        }
 
-            setTimeout(() => {
-                utils.alertLoadExec(false)
-            }, 2000)
+        const handleClick = (row) => {
+            console.log(row)
+        }
+
+        const handleSizeChange = (val) => {
+            console.log(`每页 ${val} 条`)
+        }
+
+        const handleCurrentChange = (val) => {
+            console.log(`当前页: ${val}`)
         }
 
         return {
@@ -164,9 +156,57 @@ export default defineComponent({
             title,
             setTitle,
             ...useXModal(),
-            showAlert,
             ...useXDrawer(),
-            ...useXButton()
+            ...useXButton(),
+            form: {
+                name: '',
+                region: '',
+                date1: '',
+                date2: '',
+                delivery: false,
+                type: [],
+                resource: '',
+                desc: ''
+            },
+            onSubmit,
+            handleClick,
+            handleSizeChange,
+            handleCurrentChange,
+            currentPage4: 4,
+            tableData: [
+                {
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    zip: 200333
+                },
+                {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1517 弄',
+                    zip: 200333
+                },
+                {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1519 弄',
+                    zip: 200333
+                },
+                {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1516 弄',
+                    zip: 200333
+                }
+            ]
         }
     }
 })
