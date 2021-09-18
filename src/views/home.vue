@@ -149,7 +149,7 @@ export default defineComponent({
             console.log(`当前页: ${val}`)
         }
 
-        const { result, loading, loaded } = useUrlAxios('/api/sysUserRoom/test')
+        const { result, loading, loaded } = useUrlAxios('/api/sysUserRoom/list')
 
         const double = computed(() => {
             return JSON.stringify(result, null, 4)
