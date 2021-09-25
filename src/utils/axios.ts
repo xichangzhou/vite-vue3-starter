@@ -77,28 +77,18 @@ axios.interceptors.response.use(
 )
 
 export const https = async (option: { [key: string]: any } = {}) => {
+    console.log(option)
+
     let result = null
     if (option.method === 'get' || option.method === 'delete') {
         // 处理get、delete请求
-        await (axios as any)
-            [option.method](option.url, { params: option.params })
-            .then((res: { data: any }) => {
-                result = res.data
-            })
-            .catch((err: any) => {
-                result = err
-            })
+        result = await (axios as any)[option.method](option.url, { params: option.params })
     } else if (option.method === 'post' || option.method === 'put') {
         // 处理post、put请求
-        await (axios as any)
-            [option.method](option.url, option.params)
-            .then((res: { data: any }) => {
-                result = res.data
-            })
-            .catch((err: any) => {
-                result = err
-            })
+        result = await (axios as any)[option.method](option.url, option.params)
     }
+
+    console.log(result)
 
     return result
 }

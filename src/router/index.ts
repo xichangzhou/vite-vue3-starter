@@ -2,6 +2,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import NProgress from 'nprogress'
 import Error from '@/views/Error.vue'
 import { getToken } from '@/utils/cookies'
+// 引入在axios暴露出的clearPending函数
+import { clearPending } from '@/utils/http'
 
 export const homeRoutes = [
     {
@@ -57,6 +59,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+    // 在跳转路由之前，先清除所有的请求
+    clearPending()
     NProgress.start()
 
     const token = getToken()
