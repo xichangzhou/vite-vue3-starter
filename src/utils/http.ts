@@ -1,4 +1,3 @@
-// http.ts
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import qs from 'qs'
 import { ElMessage } from 'element-plus'
@@ -188,7 +187,7 @@ service.interceptors.response.use(
             error.data = {}
             // eslint-disable-next-line no-param-reassign
             error.data.msg = '请求超时或服务器异常，请检查网络或联系管理员！'
-            ElMessage.error(error.data.msg)
+            ElMessage(error.data.msg)
         }
         return Promise.reject(error)
     }

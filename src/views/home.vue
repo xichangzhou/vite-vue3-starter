@@ -1,17 +1,17 @@
 <template>
-    <el-form :model="ruleForm" label-width="120px" ref="formRef">
+    <el-form :model="ruleForm" label-width="120px" ref="formRef" @keyup.enter="onSubmit">
         <el-row>
             <el-col :span="8"
                 ><el-form-item label="房间代码:" prop="room_dm">
-                    <el-input v-model="ruleForm.room_dm"></el-input> </el-form-item
+                    <el-input v-model="ruleForm.room_dm" clearable></el-input> </el-form-item
             ></el-col>
             <el-col :span="8"
                 ><el-form-item label="房间名:" prop="room_name">
-                    <el-input v-model="ruleForm.room_name"></el-input> </el-form-item
+                    <el-input v-model="ruleForm.room_name" clearable></el-input> </el-form-item
             ></el-col>
             <el-col :span="8"
                 ><el-form-item label="用户id:" prop="user_id">
-                    <el-input v-model="ruleForm.user_id"></el-input> </el-form-item
+                    <el-input v-model="ruleForm.user_id" clearable></el-input> </el-form-item
             ></el-col>
         </el-row>
         <el-row
@@ -41,6 +41,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, unref } from 'vue'
+import { ElMessage } from 'element-plus'
 import service from '@/utils/http'
 
 export default defineComponent({
@@ -84,6 +85,11 @@ export default defineComponent({
                 await form.validate()
                 // eslint-disable-next-line camelcase
                 const { room_dm, room_name, user_id } = state.ruleForm
+                // eslint-disable-next-line camelcase
+                if (room_dm === '' && room_name === '' && user_id === '') {
+                    ElMessage('请输入搜索条件!')
+                    return
+                }
                 fetch({ room_dm, room_name, user_id })
             } catch (error) {
                 console.log(error)
