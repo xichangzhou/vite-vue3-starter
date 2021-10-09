@@ -33,7 +33,7 @@
         <el-table-column prop="room_name" label="房间名" width="200"> </el-table-column>
         <el-table-column fixed="right" label="操作">
             <template #default="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">解绑</el-button>
+                <el-button @click="unbundling(scope.row)" type="text" size="small">解绑</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -49,10 +49,6 @@ export default defineComponent({
     name: 'HelloWorld',
     props: {},
     setup: () => {
-        const handleClick = (row: any) => {
-            console.log(row.oid)
-        }
-
         const formRef = ref(null)
 
         const reset = () => {
@@ -78,6 +74,22 @@ export default defineComponent({
             state.tableData = res.data.sysUserRooms
         }
 
+        const unbundling = async (row: any) => {
+            const res = await service({
+                url: '/sysUserRoom/unbundling',
+                method: 'post',
+                data: { ...row }
+            })
+            const { deleteCount } = res.data
+            if (deleteCount > 0) {
+                ElMessage('解绑成功!')
+                state.tableData = []
+                reset()
+            } else {
+                ElMessage('解绑失败!')
+            }
+        }
+
         const onSubmit = async () => {
             const form: any = unref(formRef)
             if (!form) return
@@ -92,6 +104,7 @@ export default defineComponent({
                 }
                 fetch({ room_dm, room_name, user_id })
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.log(error)
             }
         }
@@ -99,7 +112,7 @@ export default defineComponent({
         return {
             onSubmit,
             reset,
-            handleClick,
+            unbundling,
             ...toRefs(state),
             formRef
         }

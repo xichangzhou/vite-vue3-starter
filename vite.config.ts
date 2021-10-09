@@ -33,7 +33,7 @@ export default defineConfig({
         // 设置代理
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1:8889',
+                target: 'http://127.0.0.1:8082',
                 changeOrigin: true,
                 secure: false,
                 rewrite: (path) => path.replace('/api/', '/')
