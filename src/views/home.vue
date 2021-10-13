@@ -26,6 +26,7 @@
     <el-table :data="tableData" border style="width: 100%">
         <el-table-column fixed prop="oid" label="oid" width="200"> </el-table-column>
         <el-table-column prop="user_id" label="用户Id" width="200"> </el-table-column>
+        <el-table-column prop="user_name" label="用户名" width="200"> </el-table-column>
         <el-table-column prop="ld_dm" label="楼栋代码" width="200"> </el-table-column>
         <el-table-column prop="xq_dm" label="校区代码" width="200"> </el-table-column>
         <el-table-column prop="room_dm" label="房间代码" width="200"> </el-table-column>
@@ -71,7 +72,9 @@ export default defineComponent({
                 method: 'post',
                 data: param
             })
-            state.tableData = res.data.sysUserRooms
+            console.log(res)
+
+            state.tableData = res.list
         }
 
         const unbundling = async (row: any) => {
@@ -80,7 +83,7 @@ export default defineComponent({
                 method: 'post',
                 data: { ...row }
             })
-            const { deleteCount } = res.data
+            const { deleteCount } = res
             if (deleteCount > 0) {
                 ElMessage('解绑成功!')
                 state.tableData = []

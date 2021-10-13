@@ -39,10 +39,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { homeRoutes } from '@/router/index'
 import MenuList from '@/components/MenuList.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
-import { useRouter } from 'vue-router'
 import { getToken, removeToken } from '@/utils/cookies'
 
 export default defineComponent({

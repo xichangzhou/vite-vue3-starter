@@ -8,10 +8,10 @@ import { clearPending } from '@/utils/http'
 export const homeRoutes = [
     {
         path: '/home',
-        name: 'home',
+        name: '解绑',
         component: () => import('@/views/home.vue'),
         meta: {
-            title: 'home'
+            title: '房间解绑'
         }
     }
 ]
@@ -28,7 +28,7 @@ export const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/',
-        name: 'Home',
+        name: '解绑',
         component: () => import('@/layout/homeLayout.vue'),
         meta: {
             title: '主页'
@@ -63,24 +63,25 @@ router.beforeEach((to, from, next) => {
     clearPending()
     NProgress.start()
 
-    const token = getToken()
+    // const token = getToken()
 
-    if (!token) {
-        if (to.path === '/login') {
-            next()
-        } else {
-            next({ path: '/login' })
-            NProgress.done()
-        }
-    } else if (to.path === '/login') {
-        next({ path: '/' })
-        NProgress.done()
-    } else if (to.path === '/') {
-        next({ path: '/home' })
-        NProgress.done()
-    } else {
-        next()
-    }
+    // if (!token) {
+    //     if (to.path === '/login') {
+    //         next()
+    //     } else {
+    //         next({ path: '/login' })
+    //         NProgress.done()
+    //     }
+    // } else if (to.path === '/login') {
+    //     next({ path: '/' })
+    //     NProgress.done()
+    // } else if (to.path === '/') {
+    //     next({ path: '/home' })
+    //     NProgress.done()
+    // } else {
+    //     next()
+    // }
+    next()
 })
 
 router.afterEach(() => {
